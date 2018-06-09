@@ -1,0 +1,29 @@
+{
+  "description": "Creates a DigitalOcean snapshot configured with admin and ansible accounts.",
+
+  "variables": {
+      "do_api_key": ""
+    },
+
+  "builders": [
+    {
+      "type": "digitalocean",
+      "api_token": "{{user `do_api_key`}}",
+      "image": "ubuntu-16-04-x64",
+      "region": "sfo2",
+      "size": "s-1vcpu-1gb",
+      "ssh_username": "root",
+      "private_networking": true,
+      "monitoring": true,
+      "ipv6": true,
+      "snapshot_name": "packer-build-{{timestamp}}"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "./scripts/packer-setup-basic.sh"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "description": "Creates a VMware virtual machine configured with admin and ansible accounts.",
+
+  "variables": {
+      "admin_password": "",
+      "hostname": "packer-vm",
+      "iso": "",
+      "iso_checksum": "",
+      "vm_name": "packer-build-{{timestamp}}"
+    },
+
+  "builders": [
+    {
+      "vm_name": "{{user `vm_name`}}",
+      "output_directory": "./build/{{user `vm_name`}}.vmwarevm",
+      "type": "vmware-iso",
+      "iso_url": "{{user `iso`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "md5",
+      "ssh_username": "maadmin",
+      "ssh_password": "{{user `admin_password`}}",
+      "tools_upload_flavor": "linux",
+      "guest_os_type": "ubuntu-64",
+      "boot_command": [
+        "<enter><wait2>",
+        "<enter><wait5>",
+        "<enter><wait2>",
+        "<enter><wait2>",
+        "<enter><wait2>",
+        "<enter><wait2>",
+        "<enter><wait60>",
+        "<bs><bs><bs><bs><bs><bs>{{user `hostname`}}<enter><wait2>",
+        "maadmin<enter><enter><wait2>",
+        "{{user `admin_password`}}<enter>",
+        "{{user `admin_password`}}<enter><wait2>",
+        "<enter><wait10>",
+        "<enter><wait10>",
+        "<enter><wait2>",
+        "<enter><wait2>",
+        "<left><enter><wait2>",
+        "<enter><wait2>",
+        "<left><enter><wait75>",
+        "<enter><wait30>",
+        "<enter><wait5>",
+        "<down><down><down><down><down><down><down><down><spacebar><enter><wait90>",
+        "<enter><wait30>",
+        "<enter><wait10>"
+      ],
+      "shutdown_command": "sudo shutdown -P now"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "./scripts/packer-setup-basic.sh",
+      "expect_disconnect": true,
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo '{{user `admin_password`}}' | sudo -S bash {{.Path}}"
+        }
+      }
+    }
+  ]
+}
