@@ -6,10 +6,21 @@
 # macOS .DS_Store files
 .DS_Store
 
-# Packer folders
+
+# Packer directories
 packer/build/
 packer/packer_cache/
 
 # Packer files
 packer/secrets.json
 packer/variables.json
+
+
+# Terraform directories
+terraform/.terraform/
+terraform/*/.terraform/
+
+# Terraform files
+*.tfstate
+*.tfstate.backup*
+*.tfvars
