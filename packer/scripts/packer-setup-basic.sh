@@ -15,6 +15,8 @@ maadmin_pub_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOAHrD9y0ADqM7Xx8BzH4TvzITH
 ansible_pub_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDxJ3q0pkPSY3S+3uamTBgAnQpkHFzjGlaWeUdCZnWGi ansible ssh key"
 
 
+# Set noninteractive mode
+export DEBIAN_FRONTEND=noninteractive
 
 # Wait for cloud-init to complete
 while [[ `ps aux | grep cloud-init | grep -v grep | wc -l` -gt 0 ]]
