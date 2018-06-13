@@ -51,6 +51,7 @@ then
     echo "Creating MA Admin user..."
     adduser \
         --gecos 'Mraz Amerine Admin' \
+        --uid 1000 \
         --home /home/maadmin \
         --shell /bin/bash \
         --disabled-password \
@@ -70,6 +71,7 @@ then
     echo "Createing Ansible user..."
     adduser \
         --gecos 'Ansible User' \
+        --uid 999 \
         --home /home/ansible \
         --shell /bin/bash \
         --disabled-password \
