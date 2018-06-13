@@ -2,7 +2,8 @@
   "description": "Creates a DigitalOcean snapshot configured with admin and ansible accounts.",
 
   "variables": {
-      "do_api_key": ""
+      "do_api_key": "",
+      "snapshot_name": "packer-build-{{timestamp}}"
     },
 
   "builders": [
@@ -16,7 +17,7 @@
       "private_networking": true,
       "monitoring": true,
       "ipv6": true,
-      "snapshot_name": "packer-build-{{timestamp}}"
+      "snapshot_name": "{{user `snapshot_name`}}"
     }
   ],
 
