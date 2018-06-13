@@ -10,5 +10,6 @@
 packer/build/
 packer/packer_cache/
 
-# Packer secrets
+# Packer files
 packer/secrets.json
+packer/variables.json
